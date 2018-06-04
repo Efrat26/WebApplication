@@ -10,6 +10,11 @@ namespace WebApplication2.Controllers
 {
     public class FirstController : Controller
     {
+        static ImageWebModel imageWeb = new ImageWebModel();
+        static List<ImageWebModel> m = new List<ImageWebModel>()
+        {
+            imageWeb
+        };
         static List<Employee> employees = new List<Employee>()
         {
             //
@@ -22,7 +27,7 @@ namespace WebApplication2.Controllers
         // GET: First
         public ActionResult Index()
         {
-            return View();
+            return View(m);
         }
 
         [HttpGet]
@@ -56,13 +61,11 @@ namespace WebApplication2.Controllers
             }
             return null;
         }
-
         // GET: First/Details
         public ActionResult Details()
         {
             return View(employees);
         }
-
         // GET: First/Create
         public ActionResult Create()
         {
