@@ -1,6 +1,7 @@
 ﻿using Logs.Server;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using WebApplication2.Client;
@@ -27,7 +28,8 @@ namespace WebApplication2.Models
             Client = new ImageWebClient();
             Client.Connect();
             this.isConnected = Client.Client.IsConnected;
-            this.numOfPhotos = 0;
+            this.numOfPhotos =  Directory.EnumerateFiles(HttpContext.Current.Server.MapPath("/App_Data/output service"),
+                "*.*", SearchOption.AllDirectories).Count();
             this.students = new List<StudentDetails>();
             this.readStudentsDetails();
         }
