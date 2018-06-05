@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Client\BasicClient.cs" />
     <Compile Include="Client\ImageWebClient.cs" />
     <Compile Include="Client\IWebClient.cs" />
     <Compile Include="Controllers\FirstController.cs" />

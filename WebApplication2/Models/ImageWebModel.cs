@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Logs.Server;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebApplication2.Client;
 
 namespace WebApplication2.Models
 {
@@ -10,8 +12,11 @@ namespace WebApplication2.Models
         private List<StudentDetails> students;
         private bool isConnected;
         private int numOfPhotos;
+        private IWebClient client;
         public List<StudentDetails> Students { get { return this.students; }  set { this.students = value; } }
         public bool IsConnected { get { return this.isConnected; }  set { this.isConnected = value; } }
+        public IWebClient Client { get { return this.client; } set { this.client = value; } }
+        
         public int NumberOfPhotos
         {
             get { return this.numOfPhotos; }
@@ -19,7 +24,9 @@ namespace WebApplication2.Models
         }
         public ImageWebModel()
         {
-            this.isConnected = false;
+            Client = new ImageWebClient();
+            Client.Connect();
+            this.isConnected = Client.Client.IsConnected;
             this.numOfPhotos = 0;
             this.students = new List<StudentDetails>();
             this.readStudentsDetails();

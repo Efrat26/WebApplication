@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "..\WPF-ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logs", "..\WPF-application\ex2 AP2\Logs\Logs.csproj", "{6190E687-26B0-48BD-AE4D-0440B72F2531}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "..\ImageService\ImageService\ImageService.csproj", "{20A2843F-8477-4219-90AA-2AED8530FE1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageServiceGui", "..\WPF-application\ex2 AP2\ex2 AP2\ImageServiceGui.csproj", "{E3D1EEE9-5633-4E1A-A33C-945778A18E12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{6190E687-26B0-48BD-AE4D-0440B72F2531}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6190E687-26B0-48BD-AE4D-0440B72F2531}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6190E687-26B0-48BD-AE4D-0440B72F2531}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20A2843F-8477-4219-90AA-2AED8530FE1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20A2843F-8477-4219-90AA-2AED8530FE1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20A2843F-8477-4219-90AA-2AED8530FE1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20A2843F-8477-4219-90AA-2AED8530FE1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3D1EEE9-5633-4E1A-A33C-945778A18E12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3D1EEE9-5633-4E1A-A33C-945778A18E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3D1EEE9-5633-4E1A-A33C-945778A18E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3D1EEE9-5633-4E1A-A33C-945778A18E12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
