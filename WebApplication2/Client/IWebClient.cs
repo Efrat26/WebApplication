@@ -7,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace WebApplication2.Client
 {
+    public delegate void GotMessage(String message);
     public interface IWebClient
     {
+        event GotMessage NotifyOnMessage;
         IClient Client { get; set; }
         void Connect();
+        void MessageRecieved(String message); 
+        void GetAppConfig();
+
     }
 }

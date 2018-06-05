@@ -153,7 +153,7 @@
     <Content Include="scripts\jquery-3.0.0.slim.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
-    <Content Include="Views\First\Create.cshtml" />
+    <Content Include="Views\First\Config.cshtml" />
     <Content Include="Views\First\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>

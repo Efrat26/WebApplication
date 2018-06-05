@@ -26,10 +26,17 @@ namespace WebApplication2.Models
         public ImageWebModel()
         {
             Client = new ImageWebClient();
-            Client.Connect();
+            if (!Client.Client.IsConnected)
+            {
+                Client.Connect();
+            }
             this.isConnected = Client.Client.IsConnected;
             this.numOfPhotos =  Directory.EnumerateFiles(HttpContext.Current.Server.MapPath("/App_Data/output service"),
                 "*.*", SearchOption.AllDirectories).Count();
+            if(! (0<numOfPhotos))
+            {
+                numOfPhotos = 0;
+            }
             this.students = new List<StudentDetails>();
             this.readStudentsDetails();
         }

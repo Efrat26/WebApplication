@@ -10,6 +10,14 @@ namespace WebApplication2.Controllers
 {
     public class FirstController : Controller
     {
+        public FirstController()
+        {
+            ConfigModel config = new ConfigModel();
+            this.conf = new List<ConfigModel>();
+            conf.Add(config);
+        }
+
+        List<ConfigModel> conf;
         static ImageWebModel imageWeb = new ImageWebModel();
         static List<ImageWebModel> m = new List<ImageWebModel>()
         {
@@ -67,9 +75,9 @@ namespace WebApplication2.Controllers
             return View(employees);
         }
         // GET: First/Create
-        public ActionResult Create()
+        public ActionResult Config()
         {
-            return View();
+            return View(this.conf);
         }
 
         // POST: First/Create

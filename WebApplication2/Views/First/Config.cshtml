@@ -1,0 +1,17 @@
+﻿@model IEnumerable<WebApplication2.Models.ConfigModel>
+
+@{
+    ViewBag.Title = "Config";
+}
+
+<h2>App Config Properties</h2>
+<p>Output Directory Path:  @Model.ElementAt(0).OutputDirectory</p>
+<p>Log Name:  @Model.ElementAt(0).LogName</p>
+<p>Source Name:  @Model.ElementAt(0).SourceName</p>
+<p>Thumbnail Size:  @Model.ElementAt(0).ThumbnailSize</p>
+<p> handlers:</p>
+@for(int i=0; i<Model.ElementAt(0).Handlers.Count; ++i)
+{
+    <button>@Model.ElementAt(0).Handlers.ElementAt(i).ToString()</button>
+}
+
