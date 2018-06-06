@@ -10,14 +10,17 @@
         <td>Message</td>
         <td>Type</td>
     </tr>
-    @foreach (var log in Model.ElementAt(0).Logs)
+    @if (Model.ElementAt(0) != null)
     {
-        if (log != null)
+        foreach (var log in Model.ElementAt(0).Logs)
         {
-        <tr>
-            <td>@log.Message</td>
-            <td>@log.Type</td>
-        </tr>
+            if (log != null)
+            {
+            <tr>
+                <td>@log.Message</td>
+                <td>@log.Type</td>
+            </tr>
+            }
         }
     }
 </table>
