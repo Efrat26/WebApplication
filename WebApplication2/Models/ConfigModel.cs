@@ -91,19 +91,19 @@ namespace WebApplication2.Models
                 handlers = value;
             }
         }
-        public IWebClient Client { get { return this.client; } set { this.client = value; } }
+        public IWebClient ClientAdapter { get { return this.client; } set { this.client = value; } }
         #endregion
 
         public ConfigModel()
         {
-            this.handlers = new List<string>();
-            Client = new ImageWebClient();
-            if (!Client.Client.IsConnected)
+            
+            ClientAdapter = new ImageWebClient();
+            if (!ClientAdapter.Client.IsConnected)
             {
-                Client.Connect();
+                ClientAdapter.Connect();
             }
-            Client.NotifyOnMessage += this.OnMessage;
-            Client.GetAppConfig();
+            ClientAdapter.NotifyOnMessage += this.OnMessage;
+            ClientAdapter.GetAppConfig();
 
         }
         public void OnMessage(String message)
@@ -130,9 +130,13 @@ namespace WebApplication2.Models
                     this.SourceName = initialConfig.SourceName;
                     Console.WriteLine(initialConfig.ThumbnailSize);
                     this.ThumbnailSize = initialConfig.ThumbnailSize; string[] folders = initialConfig.Handlers.Split(';');
+                    this.handlers = new List<string>();
                     foreach (String folder in folders)
                     {
-                        this.handlers.Add(folder);
+                        //if (!this.handlers.Contains(folder))
+                        //{
+                            this.handlers.Add(folder);
+                        //}
                     }
                 }
                 catch (Exception) { }

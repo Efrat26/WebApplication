@@ -10,14 +10,11 @@ namespace WebApplication2.Controllers
 {
     public class FirstController : Controller
     {
-        public FirstController()
+        static ConfigModel config = new ConfigModel();
+        static List<ConfigModel> conf = new List<ConfigModel>()
         {
-            ConfigModel config = new ConfigModel();
-            this.conf = new List<ConfigModel>();
-            conf.Add(config);
-        }
-
-        List<ConfigModel> conf;
+            config
+        };
         static ImageWebModel imageWeb = new ImageWebModel();
         static List<ImageWebModel> m = new List<ImageWebModel>()
         {
@@ -74,10 +71,11 @@ namespace WebApplication2.Controllers
         {
             return View(employees);
         }
-        // GET: First/Create
+        // GET: First/Config
         public ActionResult Config()
         {
-            return View(this.conf);
+            config.ClientAdapter.GetAppConfig();
+            return View(conf);
         }
 
         // POST: First/Create
