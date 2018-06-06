@@ -15,6 +15,7 @@ namespace WebApplication2.Client
         void Connect();
         void MessageRecieved(String message); 
         void GetAppConfig();
+        void GetLogs();
 
     }
 }

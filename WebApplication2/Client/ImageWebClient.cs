@@ -17,6 +17,8 @@ namespace WebApplication2.Client
         public event GotMessage NotifyOnMessage;
 
         public IClient Client { get { return this.client; } set { this.client = value; } }
+
+
         public ImageWebClient()
         {
             this.Client = BasicClient.Instance;
@@ -41,6 +43,10 @@ namespace WebApplication2.Client
         {
             this.NotifyOnMessage?.Invoke(message);
         }
-
+        public void GetLogs()
+        {
+            String appConfigCommand = ((int)CommandEnum.LogCommand).ToString();
+            Client.write(appConfigCommand);
+        }
     }
 }

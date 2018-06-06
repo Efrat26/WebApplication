@@ -36,7 +36,7 @@ namespace WebApplication2.Controllers
         }
 
         [HttpGet]
-        public ActionResult AjaxView()
+        public ActionResult Logs()
         {
             return View();
         }

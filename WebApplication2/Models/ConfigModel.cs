@@ -103,6 +103,7 @@ namespace WebApplication2.Models
                 ClientAdapter.Connect();
             }
             ClientAdapter.NotifyOnMessage += this.OnMessage;
+            this.handlers = new List<string>();
             ClientAdapter.GetAppConfig();
 
         }
