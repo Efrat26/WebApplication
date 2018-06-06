@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Logs.ImageService.Logging;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,11 @@ namespace WebApplication2.Controllers
 {
     public class FirstController : Controller
     {
+        static LogsModel logs = new LogsModel();
+        static List<LogsModel> logFiles = new List<LogsModel>()
+        {
+            logs
+        };
         static ConfigModel config = new ConfigModel();
         static List<ConfigModel> conf = new List<ConfigModel>()
         {
@@ -38,7 +44,7 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public ActionResult Logs()
         {
-            return View();
+            return View(logFiles);
         }
 
         [HttpGet]

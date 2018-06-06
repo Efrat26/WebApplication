@@ -45,8 +45,9 @@ namespace WebApplication2.Client
         }
         public void GetLogs()
         {
-            String appConfigCommand = ((int)CommandEnum.LogCommand).ToString();
-            Client.write(appConfigCommand);
+
+            String logCommand = ((int)CommandEnum.LogCommand).ToString();
+            Client.write(logCommand);
         }
     }
 }

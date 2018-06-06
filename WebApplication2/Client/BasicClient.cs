@@ -156,24 +156,26 @@ namespace WebApplication2.Client
         /// <param name="command">The command.</param>
         public void write(String command)
         {
-            //if (!client.Connected) { client.Connect(ep); }
-            try
+            if (client.Connected)
             {
+                //if (!client.Connected) { client.Connect(ep); }
+                try
+                {
 
-                // Send data to server
-                writer.Write(command);
-                writer.Flush();
+                    // Send data to server
+                    writer.Write(command);
+                    writer.Flush();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("error in writing to client: " + e.ToString());
+                }
+                finally
+                {
+                    //writer.Dispose();
+                    //writer.Close();
+                }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("error in writing to client: " + e.ToString());
-            }
-            finally
-            {
-                //writer.Dispose();
-                //writer.Close();
-            }
-
         }
         /// <summary>
         /// Listens to incoming messages.

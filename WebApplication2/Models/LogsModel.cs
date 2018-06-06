@@ -26,6 +26,7 @@ namespace WebApplication2.Models
             {
                 ClientAdapter.Connect();
             }
+            this.logs = new List<LogMessage>();
             ClientAdapter.NotifyOnMessage += this.OnMessage;
             this.ClientAdapter.GetLogs();
         }
