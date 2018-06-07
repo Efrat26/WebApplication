@@ -83,7 +83,12 @@ namespace WebApplication2.Controllers
             config.ClientAdapter.GetAppConfig();
             return View(conf);
         }
-
+        
+        public ActionResult DeleteHandler(String handlerName)
+        {
+            //config.ClientAdapter.GetAppConfig();
+            return View("DeleteHandler");
+        }
         // POST: First/Create
         [HttpPost]
         public ActionResult Create(Employee emp)

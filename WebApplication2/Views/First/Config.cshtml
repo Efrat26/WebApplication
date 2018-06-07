@@ -8,17 +8,21 @@
 <p>Source Name:  @Model.ElementAt(0).SourceName</p>
 <p>Thumbnail Size:  @Model.ElementAt(0).ThumbnailSize</p>
 <p> handlers:</p>
-<ul>
+<ul id="handlersList">
     @for (int i = 0; i < Model.ElementAt(0).Handlers.Count; ++i)
     {
         <li><button class="buttons" id="@i">@Model.ElementAt(0).Handlers.ElementAt(i).ToString()</button></li>
     }
+    
 </ul>
+
 <script>
     $(function () {
         $('.buttons').click(function () {
-            var myValue = $(this).html();
-            alert(myValue);
+           // var t = "hello";
+            //ar myValue = this.attributes.getNamedItem.name;
+            //window.location.replace("DeleteHandler", myValue);
+            //window.location.replace("DeleteHandler", "DeleteHandler", "hello", "hello");
         });
     });
 </script>
