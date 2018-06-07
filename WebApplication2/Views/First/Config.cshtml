@@ -2,27 +2,23 @@
 @{
     ViewBag.Title = "Config";
 }
+<script>
+    function myNewFunction(sel) {
+        //alert(sel.options[sel.selectedIndex].text);
+        window.location.replace("DeleteHandler", "DeleteHandler");
+    }
+</script>
 <h2>App Config Properties</h2>
 <p>Output Directory Path:  @Model.ElementAt(0).OutputDirectory</p>
 <p>Log Name:  @Model.ElementAt(0).LogName</p>
 <p>Source Name:  @Model.ElementAt(0).SourceName</p>
 <p>Thumbnail Size:  @Model.ElementAt(0).ThumbnailSize</p>
 <p> handlers:</p>
-<ul id="handlersList">
+<select id="handlersList" onchange="myNewFunction(this)">
     @for (int i = 0; i < Model.ElementAt(0).Handlers.Count; ++i)
     {
-        <li><button class="buttons" id="@i">@Model.ElementAt(0).Handlers.ElementAt(i).ToString()</button></li>
+    <option >@Model.ElementAt(0).Handlers.ElementAt(i).ToString()</option>
     }
     
-</ul>
+</select>
 
-<script>
-    $(function () {
-        $('.buttons').click(function () {
-           // var t = "hello";
-            //ar myValue = this.attributes.getNamedItem.name;
-            //window.location.replace("DeleteHandler", myValue);
-            //window.location.replace("DeleteHandler", "DeleteHandler", "hello", "hello");
-        });
-    });
-</script>
