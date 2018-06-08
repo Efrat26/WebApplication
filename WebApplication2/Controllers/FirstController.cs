@@ -84,7 +84,7 @@ namespace WebApplication2.Controllers
             return View(conf);
         }
         
-        public ActionResult DeleteHandler(String handlerName)
+        public ActionResult DeleteHandler(String handlerToRemove)
         {
             //config.ClientAdapter.GetAppConfig();
             return View("DeleteHandler");

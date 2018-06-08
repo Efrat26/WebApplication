@@ -5,7 +5,8 @@
 <script>
     function myNewFunction(sel) {
         //alert(sel.options[sel.selectedIndex].text);
-        window.location.replace("DeleteHandler", "DeleteHandler");
+        window.location.replace("DeleteHandler", "DeleteHandler",
+            new DeleteHandlerModel(sel.options[sel.selectedIndex].text));
     }
 </script>
 <h2>App Config Properties</h2>
@@ -14,11 +15,11 @@
 <p>Source Name:  @Model.ElementAt(0).SourceName</p>
 <p>Thumbnail Size:  @Model.ElementAt(0).ThumbnailSize</p>
 <p> handlers:</p>
-<select id="handlersList" onchange="myNewFunction(this)">
-    @for (int i = 0; i < Model.ElementAt(0).Handlers.Count; ++i)
+<br />
+    @foreach(String handler in Model.ElementAt(0).Handlers)
     {
-    <option >@Model.ElementAt(0).Handlers.ElementAt(i).ToString()</option>
+        @Html.ActionLink(handler, "DeleteHandler", "First", new { handlerToRemove = @handler}, null)
+        <br />
     }
-    
-</select>
+   
 
