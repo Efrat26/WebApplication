@@ -16,10 +16,13 @@
 <p>Thumbnail Size:  @Model.ElementAt(0).ThumbnailSize</p>
 <p> handlers:</p>
 <br />
-    @foreach(String handler in Model.ElementAt(0).Handlers)
+    @if (Model.ElementAt(0).Handlers != null)
     {
-        @Html.ActionLink(handler, "DeleteHandler", "First", new { handlerToRemove = @handler}, null)
+        foreach (String handler in Model.ElementAt(0).Handlers)
+        {
+        @Html.ActionLink(handler, "DeleteHandler", "First", new { handlerToRemove = @handler }, null)
         <br />
+        }
     }
-   
+
 

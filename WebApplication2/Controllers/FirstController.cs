@@ -11,6 +11,7 @@ namespace WebApplication2.Controllers
 {
     public class FirstController : Controller
     {
+        static String potenialRemovedHandler;
         static LogsModel logs = new LogsModel();
         static List<LogsModel> logFiles = new List<LogsModel>()
         {
@@ -73,21 +74,31 @@ namespace WebApplication2.Controllers
             return null;
         }
         // GET: First/Details
+        [HttpGet]
         public ActionResult Details()
         {
             return View(employees);
         }
         // GET: First/Config
+        [HttpGet]
         public ActionResult Config()
         {
             config.ClientAdapter.GetAppConfig();
             return View(conf);
         }
-        
+        [HttpGet]
         public ActionResult DeleteHandler(String handlerToRemove)
         {
-            //config.ClientAdapter.GetAppConfig();
-            return View("DeleteHandler");
+            if (handlerToRemove != null)
+            {
+                potenialRemovedHandler = handlerToRemove;
+                ViewBag.handler = handlerToRemove;
+                return View("DeleteHandler");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
         // POST: First/Create
         [HttpPost]

@@ -166,7 +166,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ConfigModel.cs" />
-    <Compile Include="Models\DeleteHandlerModel.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\ImageWebModel.cs" />
     <Compile Include="Models\LogsModel.cs" />
