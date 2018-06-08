@@ -52,26 +52,44 @@ namespace WebApplication2.Controllers
         public JObject GetEmployee()
         {
             JObject data = new JObject();
-            data["FirstName"] = "Kuky";
-            data["LastName"] = "Mopy";
+            data["Message"] = "Kuky";
+            data["Type"] = "Mopy";
             return data;
         }
 
         [HttpPost]
-        public JObject GetEmployee(string name, int salary)
+        public JObject GetRelevantLogs(string selection)
         {
-            foreach (var empl in employees)
+            JObject data;
+            if (logFiles != null && logFiles.ElementAt(0) != null &&
+                logFiles.ElementAt(0).Logs != null)
             {
-                if (empl.Salary > salary || name.Equals(name))
+
+                foreach (var log in logFiles.ElementAt(0).Logs)
                 {
-                    JObject data = new JObject();
-                    data["FirstName"] = empl.FirstName;
-                    data["LastName"] = empl.LastName;
-                    data["Salary"] = empl.Salary;
-                    return data;
+                    if (selection!= null && (selection.Equals("INFO") || selection.Equals("FAIL") ||
+                        selection.Equals("WARNING")))
+                    {
+                        if (selection.Equals(log.Type.ToString())) {
+                            data = new JObject();
+                            data["Message"] = log.Message;
+                            data["Type"] = log.Type.ToString();
+                            return data;
+                        }
+                    }
+                    else
+                    {
+                        data = new JObject();
+                        data["Message"] = log.Message;
+                        data["Type"] = log.Type.ToString();
+                        return data;
+                    }
                 }
             }
-            return null;
+            data = new JObject();
+            data["Message"] = "in get relevant logs";
+            data["Type"] = "INFO";
+            return data;
         }
         // GET: First/Details
         [HttpGet]
@@ -86,6 +104,7 @@ namespace WebApplication2.Controllers
             config.ClientAdapter.GetAppConfig();
             return View(conf);
         }
+        
         [HttpGet]
         public ActionResult DeleteHandler(String handlerToRemove)
         {
