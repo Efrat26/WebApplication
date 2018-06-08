@@ -100,6 +100,10 @@ namespace WebApplication2.Controllers
                 return RedirectToAction("Index");
             }
         }
+        public ActionResult Remove(String answer)
+        {
+            return RedirectToAction("Index");
+        }
         // POST: First/Create
         [HttpPost]
         public ActionResult Create(Employee emp)
@@ -165,5 +169,7 @@ namespace WebApplication2.Controllers
             }
             return RedirectToAction("Error");
         }
+
+
     }
 }

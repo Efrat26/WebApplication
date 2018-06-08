@@ -4,16 +4,28 @@
 }
 
 <h2>Delete Handler</h2>
-@if (ViewBag !=null && ViewBag.handler != null)
-{
-    <p>Are you sure you want to delete this handler @ViewBag.handler?</p>
-}
-else
-{
-    <p>Are you sure you want to delete this handler?</p>
-}
-<br>
-<br />
-<button>Yes</button>
-<button>No</button>
+<body>
+    @if (ViewBag != null && ViewBag.handler != null)
+    {
+        <p>Are you sure you want to delete this handler @ViewBag.handler?</p>
+    }
+    else
+    {
+        <p>Are you sure you want to delete this handler: ?</p>
+    }
+    <script>
+        function returnToConfig() {
+            window.history.back();
+        }
+    </script>
+    <script>
+        function removeHandler() {
+            
+        }
+    </script>
+    <br>
+    <br />
+    <button id="btnYes" onclick="removeHandler()">Yes</button>
+    <button onclick="returnToConfig()">No</button>
 
+</body>
