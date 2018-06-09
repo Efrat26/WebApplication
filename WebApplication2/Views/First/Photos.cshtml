@@ -1,8 +1,13 @@
 ﻿@model IEnumerable<WebApplication2.Models.PhotosModel>
-
 @{
     ViewBag.Title = "Photos";
 }
-
 <h2>Photos</h2>
+@if (Model != null && Model.ElementAt(0) != null && Model.ElementAt(0).Thumbnails != null)
+{
+    foreach (String photo in Model.ElementAt(0).Thumbnails)
+    {
 
+    <img src="@photo" class="img-rounded" alt="thumbnail photo">
+    }
+}
