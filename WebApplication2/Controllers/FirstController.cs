@@ -58,38 +58,25 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost]
-        public JObject GetRelevantLogs(string selection)
+        public JObject GetRelevantLogs(string selection, int index)
         {
             JObject data;
-            if (logFiles != null && logFiles.ElementAt(0) != null &&
-                logFiles.ElementAt(0).Logs != null)
+            if (selection != null && index >= 0 && logs != null && logs.Logs != null)
             {
-
-                foreach (var log in logFiles.ElementAt(0).Logs)
+                LogMessage current = logs.Logs.ElementAt(index);
+                if (selection.Equals(current.Type.ToString()))
                 {
-                    if (selection!= null && (selection.Equals("INFO") || selection.Equals("FAIL") ||
-                        selection.Equals("WARNING")))
-                    {
-                        if (selection.Equals(log.Type.ToString())) {
-                            data = new JObject();
-                            data["Message"] = log.Message;
-                            data["Type"] = log.Type.ToString();
-                            return data;
-                        }
-                    }
-                    else
-                    {
-                        data = new JObject();
-                        data["Message"] = log.Message;
-                        data["Type"] = log.Type.ToString();
-                        return data;
-                    }
+                    data = new JObject();
+                    data["Message"] = current.Message;
+                    data["Type"] = current.Type.ToString();
+                    return data;
                 }
             }
-            data = new JObject();
-            data["Message"] = "in get relevant logs";
-            data["Type"] = "INFO";
-            return data;
+            else
+            {
+                return null;
+            }
+            return null;
         }
         // GET: First/Details
         [HttpGet]

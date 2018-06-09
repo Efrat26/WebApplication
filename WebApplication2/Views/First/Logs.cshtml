@@ -18,11 +18,17 @@
     function getRelevantLogs() {
         var e = document.getElementById("logsOptions");
         var strUser = e.options[e.selectedIndex].text;
-        var input = {
-            selection: strUser
-        };
-          $.post("@Url.Action("GetRelevantLogs")", input, function (data) {
-            $("#lstProducts").append("<li>" + data.Message + " " + data.Type + "</li>");
-        }, "json");
+        var i;
+        for (i = 0; i <@Model.ElementAt(0).Logs.Count; ++i) {
+            var input = {
+                selection: strUser,
+                index: i
+            };
+            $.post("@Url.Action("GetRelevantLogs")", input, function (data) {
+                if (data != null) {
+                    $("#lstProducts").append("<li>" + data.Message + " " + data.Type + "</li>");
+                }
+            }, "json");
+        }
     }
 </script>
