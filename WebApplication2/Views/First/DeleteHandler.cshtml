@@ -13,6 +13,11 @@
     {
         <p>Are you sure you want to delete this handler: ?</p>
     }
+
+    <br>
+    <br />
+    <button id="btnYes" onclick="removeHandler()">Yes</button>
+    <button id="btnNo" onclick="returnToConfig()">No</button>
     <script>
         function returnToConfig() {
             window.history.back();
@@ -20,12 +25,15 @@
     </script>
     <script>
         function removeHandler() {
-            
+            document.getElementById("btnYes").disabled = true;
+            document.getElementById("btnNo").disabled = true; 
+            var input = {};
+            $.post("@Url.Action("RemoveHandler")", input, function (answer) {
+                if (answer) {
+                    alert("removed handler");
+                } else { alert("could not remove handler"); }
+            });
+             window.history.back();
         }
     </script>
-    <br>
-    <br />
-    <button id="btnYes" onclick="removeHandler()">Yes</button>
-    <button onclick="returnToConfig()">No</button>
-
 </body>

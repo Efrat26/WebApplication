@@ -92,7 +92,7 @@ namespace WebApplication2.Controllers
             config.ClientAdapter.GetAppConfig();
             return View(conf);
         }
-        
+
         [HttpGet]
         public ActionResult DeleteHandler(String handlerToRemove)
         {
@@ -130,8 +130,10 @@ namespace WebApplication2.Controllers
         // GET: First/Edit/5
         public ActionResult Edit(int id)
         {
-            foreach (Employee emp in employees) {
-                if (emp.ID.Equals(id)) { 
+            foreach (Employee emp in employees)
+            {
+                if (emp.ID.Equals(id))
+                {
                     return View(emp);
                 }
             }
@@ -176,7 +178,15 @@ namespace WebApplication2.Controllers
             }
             return RedirectToAction("Error");
         }
-
-
+        [HttpPost]
+        public bool RemoveHandler()
+        {
+            if(config != null && potenialRemovedHandler != null)
+            {
+                while (!config.ClientAdapter.RemoveHandler(potenialRemovedHandler)) { }
+            }
+            bool answer = true;
+            return answer;
+        }
     }
 }

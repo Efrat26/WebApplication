@@ -20,7 +20,8 @@
     {
         foreach (String handler in Model.ElementAt(0).Handlers)
         {
-        @Html.ActionLink(handler, "DeleteHandler", "First", new { handlerToRemove = @handler }, null)
+        @Html.ActionLink(handler, "DeleteHandler", "First",
+       new { handlerToRemove = @handler }, null)
         <br />
         }
     }

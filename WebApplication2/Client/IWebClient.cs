@@ -16,6 +16,6 @@ namespace WebApplication2.Client
         void MessageRecieved(String message); 
         void GetAppConfig();
         void GetLogs();
-
+        bool RemoveHandler(String handlerName);
     }
 }

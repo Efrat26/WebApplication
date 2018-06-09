@@ -1,6 +1,7 @@
 ﻿using ex2_AP2.Settings.Client;
 using Infrastructure.Enums;
 using Logs.AppConfigObjects;
+using Logs.Controller.Handlers;
 using System;
 using System.IO;
 using System.Net;
@@ -17,10 +18,11 @@ namespace WebApplication2.Client
         public event GotMessage NotifyOnMessage;
 
         public IClient Client { get { return this.client; } set { this.client = value; } }
-
+        private bool waitForSuccess;
 
         public ImageWebClient()
         {
+            this.waitForSuccess = false;
             this.Client = BasicClient.Instance;
             this.Client.GotMessage += this.MessageRecieved;
             //Client.GotMessage += this.MessageRecieved;
@@ -41,6 +43,9 @@ namespace WebApplication2.Client
 
         public void MessageRecieved(string message)
         {
+            if (this.waitForSuccess && message.Equals(ResultMessgeEnum.Success.ToString())) {
+                this.waitForSuccess = false;
+            }
             this.NotifyOnMessage?.Invoke(message);
         }
         public void GetLogs()
@@ -48,6 +53,17 @@ namespace WebApplication2.Client
 
             String logCommand = ((int)CommandEnum.LogCommand).ToString();
             Client.write(logCommand);
+        }
+        public bool RemoveHandler(String handlerName)
+        {
+            this.waitForSuccess = true;
+            HandlerToClose h = new HandlerToClose(handlerName);
+            String jobject = h.ToJSON();
+            int message = (int)CommandEnum.CloseHandler;
+            String newMessage = message.ToString() + jobject;
+            client.write(newMessage);
+            while(!this.waitForSuccess) { };
+            return true;
         }
     }
 }
