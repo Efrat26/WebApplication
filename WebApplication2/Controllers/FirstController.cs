@@ -12,7 +12,11 @@ namespace WebApplication2.Controllers
     public class FirstController : Controller
     {
         static String potenialRemovedHandler;
-        static PhotosModel photos = new PhotosModel();
+        static PhotosModel photosModel = new PhotosModel();
+        static List<PhotosModel> photos = new List<PhotosModel>()
+        {
+            photosModel
+        };
         static LogsModel logs = new LogsModel();
         static List<LogsModel> logFiles = new List<LogsModel>()
         {
@@ -80,11 +84,11 @@ namespace WebApplication2.Controllers
             }
             return null;
         }
-        // GET: First/Details
+        // GET: First/Photos
         [HttpGet]
-        public ActionResult Details()
+        public ActionResult Photos()
         {
-            return View(employees);
+            return View(photos);
         }
         // GET: First/Config
         [HttpGet]
