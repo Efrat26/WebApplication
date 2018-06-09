@@ -12,6 +12,7 @@ namespace WebApplication2.Controllers
     public class FirstController : Controller
     {
         static String potenialRemovedHandler;
+        static PhotosModel photos = new PhotosModel();
         static LogsModel logs = new LogsModel();
         static List<LogsModel> logFiles = new List<LogsModel>()
         {
@@ -185,6 +186,7 @@ namespace WebApplication2.Controllers
             {
                 while (!config.ClientAdapter.RemoveHandler(potenialRemovedHandler)) { }
             }
+            //potenialRemovedHandler = null;
             bool answer = true;
             return answer;
         }
