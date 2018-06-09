@@ -5,6 +5,7 @@
 
 <h2>Logs</h2>
 <select id="logsOptions" onchange="getRelevantLogs()">
+    <option disabled="disabled" selected="selected">Select an option.</option>
     <option>INFO</option>
     <option>FAIL</option>
     <option>WARNING</option>
@@ -16,6 +17,7 @@
 </div>
 <script>
     function getRelevantLogs() {
+        document.getElementById("lstProducts").innerHTML = "";
         var e = document.getElementById("logsOptions");
         var strUser = e.options[e.selectedIndex].text;
         var i;
