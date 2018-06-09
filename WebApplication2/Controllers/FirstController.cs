@@ -64,7 +64,8 @@ namespace WebApplication2.Controllers
             if (selection != null && index >= 0 && logs != null && logs.Logs != null)
             {
                 LogMessage current = logs.Logs.ElementAt(index);
-                if (selection.Equals(current.Type.ToString()))
+                string all = "ALL";
+                if (selection.Equals(current.Type.ToString()) || selection.Equals(all))
                 {
                     data = new JObject();
                     data["Message"] = current.Message;
