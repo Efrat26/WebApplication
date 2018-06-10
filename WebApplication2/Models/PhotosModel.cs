@@ -9,31 +9,55 @@ namespace WebApplication2.Models
 {
     public class PhotosModel
     {
-        private List<string> images;
-        public List<string> Thumbnails { get { return this.images; } set { this.images = value; } }
+        private List<Photo> images;
+        public List<Photo> Thumbnails { get { return this.images; } set { this.images = value; } }
 
         public PhotosModel()
         {
             
             string[] photos = Directory.GetFiles(HttpContext.Current.Server.MapPath("/images/Thumbnails"),
                 "*.*", SearchOption.AllDirectories);
-            images = new List<string>(photos);
-            CreateRelativePath();
+            images = new List<Photo>();
+            CreatePhotoObjects(photos);
             Console.WriteLine("hello");
         }
-        private void CreateRelativePath()
+        private void CreatePhotoObjects(string[] photos)
         {
+            Photo p;
+            string path;
+            string[] splittedString;
             int indexOfThumbnail, sizeOfString;
             int index;
+            var replacements = new[]{
+             new{Find="\\",Replace=""},
+                new{Find="/",Replace=""}};
             string current, newString;
-            for(index = 0; index < images.Count; ++index) {
-                current = images.ElementAt(index);
+            string temp;
+            for(index = 0; index < photos.Length; ++index) {
+                current = photos[index];
                 sizeOfString = current.Length;
                 indexOfThumbnail = current.IndexOf("\\Thumbnails");
                 if (indexOfThumbnail != -1)
                 {
-                    newString ="\\images" +current.Substring(indexOfThumbnail, sizeOfString - indexOfThumbnail);
-                    images[index] = newString;
+                    path ="\\images" +current.Substring(indexOfThumbnail, sizeOfString - indexOfThumbnail);
+                    splittedString = path.Split('\\');
+                    for(int i=0; i< splittedString.Length; ++i) {
+                        temp = splittedString[i];
+                        foreach (var set in replacements)
+                        {
+                            temp = temp.Replace(set.Find, set.Replace);
+                        }
+                        splittedString[i] = temp;
+                    }
+                   
+                    try
+                    {
+                         p = new Photo(splittedString[splittedString.Length - 1], path,
+                             Int32.Parse(splittedString[splittedString.Length - 2]), 
+                             Int32.Parse(splittedString[splittedString.Length - 3]));
+                    }
+                    catch (Exception) { p = null; Console.WriteLine("Error in creating photo object!");}
+                    this.images.Add(p);
                 }
             }
         }

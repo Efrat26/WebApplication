@@ -5,7 +5,7 @@
 <h2>Photos</h2>
 @if (Model != null && Model.ElementAt(0) != null && Model.ElementAt(0).Thumbnails != null)
 {
-    foreach (String photo in Model.ElementAt(0).Thumbnails)
+    foreach (Photo photo in Model.ElementAt(0).Thumbnails)
     {
         //String newPhoto = '~' + photo;
     <img src="@photo" class="img-rounded" alt="thumbnail photo">
