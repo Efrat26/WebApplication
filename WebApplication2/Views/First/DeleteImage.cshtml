@@ -3,5 +3,22 @@
     ViewBag.Title = "DeleteImage";
 }
 
-<h2>DeleteImage</h2>
+<h2>Are you sure you want to delete this photo?</h2>
+<h3>@ViewBag.name</h3>
+<p>
+    <img src="@ViewBag.photo" class="img-circle" alt="full size photo" />
+</p>
+<button id="btnYes" onclick="deletePhoto()">Yes</button>
+<button id="btnNo" onclick="returnToPhotos()">No</button>
+
+<script>
+        function returnToPhotos() {
+            window.history.back();
+        }
+</script>
+<script>
+        function deletePhoto() {
+            
+        }
+</script>
 

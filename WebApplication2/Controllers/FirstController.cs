@@ -199,9 +199,20 @@ namespace WebApplication2.Controllers
         {
             if (photoToRemove != null)
             {
-                //potenialRemovedHandler = handlerToRemove;
-                //ViewBag.handler = handlerToRemove;
-                return View("DeleteImage");
+                int index;
+                for(index = 0; index<photosModel.Thumbnails.Count; ++index)
+                {
+                    Photo current = photosModel.Thumbnails.ElementAt(index);
+                    if (current.PathToFullSizeImage.Equals(photoToRemove))
+                    {
+                        ViewBag.photo = photoToRemove;
+                        ViewBag.month = current.Month.ToString();
+                        ViewBag.year = current.Year.ToString();
+                        ViewBag.name = current.NameWithoutExt;
+                        return View("DeleteImage");
+                    }
+                }
+                return View("Index");
             }
             else
             {
@@ -214,7 +225,10 @@ namespace WebApplication2.Controllers
             if (photoToView != null)
             {
                 //potenialRemovedHandler = handlerToRemove;
-                //ViewBag.handler = handlerToRemove;
+                //ViewBag.photo = photoToView;
+                //ViewBag.month = month;
+               // ViewBag.year = year;
+               // ViewBag.name = name;
                 return View("ViewImage");
             }
             else

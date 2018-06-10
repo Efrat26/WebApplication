@@ -7,9 +7,9 @@
 
     <div class="row">
         @if (Model != null && Model.ElementAt(0) != null && Model.ElementAt(0).Thumbnails != null)
-    {
-        for (int index = 0; index < Model.ElementAt(0).Thumbnails.Count; ++index)
         {
+            for (int index = 0; index < Model.ElementAt(0).Thumbnails.Count; ++index)
+            {
 
             <div class="col-xs-18 col-sm-6 col-md-3">
                 <div class="thumbnail">
@@ -20,18 +20,18 @@
                         <p>
                             
                             @Html.ActionLink("View", "ViewPhoto", "First",
-                            new { photoToView = @Model.ElementAt(0).Thumbnails.ElementAt(index).PathToFullSizeImage },
-                            new { @class = "btn btn - info btn - xs" })
+                     new { photoToView = @Model.ElementAt(0).Thumbnails.ElementAt(index).PathToFullSizeImage },
+                     new { @class = "btn btn - info btn - xs" })
                             @Html.ActionLink("Delete", "DeletePhoto", "First",
-                             new { photoToRemove = @Model.ElementAt(0).Thumbnails.ElementAt(index).PathToFullSizeImage },
-                            new { @class = "btn btn-default btn-xs" })
+                      new { photoToRemove = @Model.ElementAt(0).Thumbnails.ElementAt(index).PathToFullSizeImage },
+                     new { @class = "btn btn-default btn-xs" })
                         </p>
                     </div>
                 </div>
             </div>
-    }
-    
-}
+            }
+
+        }
     </div>
 
 </div>
