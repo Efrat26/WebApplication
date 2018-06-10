@@ -18,13 +18,15 @@
                         <h4>@Model.ElementAt(0).Thumbnails.ElementAt(index).NameWithoutExt</h4>
                         <p> Date Taken: @Model.ElementAt(0).Thumbnails.ElementAt(index).Month , @Model.ElementAt(0).Thumbnails.ElementAt(index).Year</p>
                         <p>
-                            
+
                             @Html.ActionLink("View", "ViewPhoto", "First",
-                     new { photoToView = @Model.ElementAt(0).Thumbnails.ElementAt(index).PathToFullSizeImage },
-                     new { @class = "btn btn - info btn - xs" })
+new { photoToView = @Model.ElementAt(0).Thumbnails.ElementAt(index).PathToFullSizeImage },
+new { @class = "btn btn - info btn - xs" })
+                           
                             @Html.ActionLink("Delete", "DeletePhoto", "First",
-                      new { photoToRemove = @Model.ElementAt(0).Thumbnails.ElementAt(index).PathToFullSizeImage },
-                     new { @class = "btn btn-default btn-xs" })
+new { photoToRemove = @Model.ElementAt(0).Thumbnails.ElementAt(index).PathToFullSizeImage },
+new { @class = "btn btn-default btn-xs" })
+                         
                         </p>
                     </div>
                 </div>

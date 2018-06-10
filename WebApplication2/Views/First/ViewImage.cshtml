@@ -3,5 +3,28 @@
     ViewBag.Title = "ViewImage";
 }
 
-<h2>View Image</h2>
+<h2>Photo View</h2>
+@if (ViewBag != null && ViewBag.name != null && ViewBag.photo != null)
+{
+    <h3>@ViewBag.name</h3>
+    <h34>Date taken: @ViewBag.month, @ViewBag.year</h34>
+    <p>
+        <img src="@ViewBag.photo" alt="full size photo" />
+    </p>
+    <button id="btnDelete" onclick="returnToPhotos()">Back</button>
+    <button id="btnDelete" onclick="deletePhoto()">Delete</button>
+
+}
+<script>
+    function returnToPhotos() {
+        window.history.back();
+    }
+</script>
+<script>
+        function deletePhoto() {
+            @Html.ActionLink("Config", "Config", "First");
+            
+        }
+</script>
+
 

@@ -6,11 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
-
+using System.Web;
 namespace WebApplication2.Controllers
 {
     public class FirstController : Controller
     {
+        static String potentialDeletedPhoto;
+        static String potentialDeletedPhotoThumbnail;
         static String potenialRemovedHandler;
         static PhotosModel photosModel = new PhotosModel();
         static List<PhotosModel> photos = new List<PhotosModel>()
@@ -194,10 +196,49 @@ namespace WebApplication2.Controllers
             bool answer = true;
             return answer;
         }
+        [HttpPost]
+        public bool RemoveImage()
+        {
+            bool answer = true;
+           
+            if (potentialDeletedPhotoThumbnail != null && potentialDeletedPhoto!= null)
+            {
+                String pThumb = System.Web.HttpContext.Current.Server.MapPath(potentialDeletedPhotoThumbnail);
+                String p = System.Web.HttpContext.Current.Server.MapPath(potentialDeletedPhoto);
+                if (System.IO.File.Exists(pThumb))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(pThumb);
+                    } catch(Exception e)
+                    {
+                        Console.WriteLine("error while removing image: " + potentialDeletedPhotoThumbnail+'\n'+
+                            "error is: " + e.ToString());
+                        answer = false;
+                    }
+                }
+                if (System.IO.File.Exists(p))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(p);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("error while removing image: " + potentialDeletedPhoto + '\n' +
+                            "error is: " + e.ToString());
+                        answer = false;
+                    }
+                }
+            }
+            //potenialRemovedHandler = null;
+            
+            return answer;
+        }
         [HttpGet]
         public ActionResult DeletePhoto(String photoToRemove)
         {
-            if (photoToRemove != null)
+            if (photosModel != null && photoToRemove != null)
             {
                 int index;
                 for(index = 0; index<photosModel.Thumbnails.Count; ++index)
@@ -209,6 +250,8 @@ namespace WebApplication2.Controllers
                         ViewBag.month = current.Month.ToString();
                         ViewBag.year = current.Year.ToString();
                         ViewBag.name = current.NameWithoutExt;
+                        potentialDeletedPhoto = photoToRemove;
+                        potentialDeletedPhotoThumbnail = current.Path;
                         return View("DeleteImage");
                     }
                 }
@@ -222,13 +265,23 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public ActionResult ViewPhoto(String photoToView)
         {
-            if (photoToView != null)
+            if (photoToView != null && photos != null)
             {
-                //potenialRemovedHandler = handlerToRemove;
-                //ViewBag.photo = photoToView;
-                //ViewBag.month = month;
-               // ViewBag.year = year;
-               // ViewBag.name = name;
+                int index;
+                for (index = 0; index < photosModel.Thumbnails.Count; ++index)
+                {
+                    Photo current = photosModel.Thumbnails.ElementAt(index);
+                    if (current.PathToFullSizeImage.Equals(photoToView))
+                    {
+                        ViewBag.photo = photoToView;
+                        ViewBag.month = current.Month.ToString();
+                        ViewBag.year = current.Year.ToString();
+                        ViewBag.name = current.NameWithoutExt;
+                        potentialDeletedPhoto = photoToView;
+                        potentialDeletedPhotoThumbnail = current.Path;
+                        return View("ViewImage");
+                    }
+                }
                 return View("ViewImage");
             }
             else
