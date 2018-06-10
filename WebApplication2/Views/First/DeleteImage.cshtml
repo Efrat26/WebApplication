@@ -9,30 +9,28 @@
     <h3>@ViewBag.name</h3>
     <h34>Date taken: @ViewBag.month, @ViewBag.year</h34>
     <p>
-        <img src="@ViewBag.photo"  alt="full size photo" />
+        <img id="myImg" src="@ViewBag.photo" alt="full size photo" />
     </p>
     <button id="btnYes" onclick="deletePhoto()">Yes</button>
     <button id="btnNo" onclick="returnToPhotos()">No</button>
-}
-<script>
-    function returnToPhotos() {
-        window.history.back();
-    }
-</script>
-<script>
-        function deletePhoto() {
-             document.getElementById("btnYes").disabled = true;
-            document.getElementById("btnNo").disabled = true;
-            var input = {};
-            alert("button yes was pressed");
-            $.post("@Url.Action("RemoveImage")", input, function (answer) {
-                if (answer) {
-                    alert("image removed!");
-                } else {
-                    alert("there was an error while removing image!");
-                }
-            });
-            @Html.ActionLink("Config", "Config", "First");
+    <script>
+        function returnToPhotos() {
+            window.history.back();
         }
-</script>
+    </script>
+    <script>
+    function deletePhoto() {
+        var input = { delete : true};
+        $.post("@Url.Action("RemoveImageFromComputer")", input, function (answer) {
+            returnToPhotos(); });
+        
+    }
+    </script>
+    <script>
+        function returnToPhotos() {
+            @Html.ActionLink("Photos", "Photos", "First");
+        }
+    </script>
+}
+
 

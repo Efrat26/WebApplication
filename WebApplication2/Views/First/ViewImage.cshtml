@@ -13,18 +13,18 @@
     </p>
     <button id="btnDelete" onclick="returnToPhotos()">Back</button>
     <button id="btnDelete" onclick="deletePhoto()">Delete</button>
-
-}
-<script>
-    function returnToPhotos() {
-        window.history.back();
-    }
-</script>
-<script>
-        function deletePhoto() {
-            @Html.ActionLink("Config", "Config", "First");
-            
+    <script>
+        function returnToPhotos() {
+            window.history.back();
         }
-</script>
+    </script>
+    <script>
+        function deletePhoto() {
+            @Html.ActionLink("DeletePhoto", "DeletePhoto", "First", new { photoToRemove = ViewBag.photo }, null);
+
+        }
+    </script>
+}
+
 
 

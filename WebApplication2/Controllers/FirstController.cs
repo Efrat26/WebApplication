@@ -197,12 +197,11 @@ namespace WebApplication2.Controllers
             return answer;
         }
         [HttpPost]
-        public bool RemoveImage()
+        public bool RemoveImageFromComputer(bool delete)
         {
-            bool answer = true;
-           
-            if (potentialDeletedPhotoThumbnail != null && potentialDeletedPhoto!= null)
+            if (delete && potentialDeletedPhotoThumbnail != null && potentialDeletedPhoto!= null)
             {
+                
                 String pThumb = System.Web.HttpContext.Current.Server.MapPath(potentialDeletedPhotoThumbnail);
                 String p = System.Web.HttpContext.Current.Server.MapPath(potentialDeletedPhoto);
                 if (System.IO.File.Exists(pThumb))
@@ -214,7 +213,7 @@ namespace WebApplication2.Controllers
                     {
                         Console.WriteLine("error while removing image: " + potentialDeletedPhotoThumbnail+'\n'+
                             "error is: " + e.ToString());
-                        answer = false;
+                        return false;
                     }
                 }
                 if (System.IO.File.Exists(p))
@@ -227,19 +226,22 @@ namespace WebApplication2.Controllers
                     {
                         Console.WriteLine("error while removing image: " + potentialDeletedPhoto + '\n' +
                             "error is: " + e.ToString());
-                        answer = false;
+                        return false;
+
                     }
                 }
+                return true;
+               // return RedirectToAction("Photos");
             }
-            //potenialRemovedHandler = null;
-            
-            return answer;
+            return true;
+            //return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult DeletePhoto(String photoToRemove)
         {
             if (photosModel != null && photoToRemove != null)
             {
+                
                 int index;
                 for(index = 0; index<photosModel.Thumbnails.Count; ++index)
                 {
@@ -255,11 +257,13 @@ namespace WebApplication2.Controllers
                         return View("DeleteImage");
                     }
                 }
-                return View("Index");
+                
+                return View("DeleteImage");
+                //return View("Index");
             }
             else
             {
-                return RedirectToAction("Index");
+                return View("Index");
             }
         }
         [HttpGet]
@@ -286,7 +290,7 @@ namespace WebApplication2.Controllers
             }
             else
             {
-                return RedirectToAction("Index");
+                return View("Index");
             }
         }
     }
