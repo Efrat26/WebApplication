@@ -199,6 +199,8 @@
     <Content Include="scripts\jquery-3.0.0.min.map" />
     <Content Include="scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Views\First\DeleteHandler.cshtml" />
+    <Content Include="Views\First\DeleteImage.cshtml" />
+    <Content Include="Views\First\ViewImage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -194,5 +194,33 @@ namespace WebApplication2.Controllers
             bool answer = true;
             return answer;
         }
+        [HttpGet]
+        public ActionResult DeletePhoto(String photoToRemove)
+        {
+            if (photoToRemove != null)
+            {
+                //potenialRemovedHandler = handlerToRemove;
+                //ViewBag.handler = handlerToRemove;
+                return View("DeleteImage");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        [HttpGet]
+        public ActionResult ViewPhoto(String photoToView)
+        {
+            if (photoToView != null)
+            {
+                //potenialRemovedHandler = handlerToRemove;
+                //ViewBag.handler = handlerToRemove;
+                return View("ViewImage");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

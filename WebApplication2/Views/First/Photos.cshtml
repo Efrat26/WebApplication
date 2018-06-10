@@ -10,27 +10,28 @@
     {
         for (int index = 0; index < Model.ElementAt(0).Thumbnails.Count; ++index)
         {
-            
+
             <div class="col-xs-18 col-sm-6 col-md-3">
                 <div class="thumbnail">
                     <img src="@Model.ElementAt(0).Thumbnails.ElementAt(index).Path" class="img-circle" alt="thumbnail photo">
                     <div class="caption">
                         <h4>@Model.ElementAt(0).Thumbnails.ElementAt(index).NameWithoutExt</h4>
                         <p> Date Taken: @Model.ElementAt(0).Thumbnails.ElementAt(index).Month , @Model.ElementAt(0).Thumbnails.ElementAt(index).Year</p>
-                        <p><a href="#" onclick="viewFunction()" class="btn btn-info btn-xs" role="button" id="viewBtn">View</a> <a href="#" class="btn btn-default btn-xs" role="button" id="deleteBtn" onclick="deleteFunction()">Delete</a></p>
+                        <p>
+                            
+                            @Html.ActionLink("View", "ViewPhoto", "First",
+                            new { photoToView = @Model.ElementAt(0).Thumbnails.ElementAt(index).PathToFullSizeImage },
+                            new { @class = "btn btn - info btn - xs" })
+                            @Html.ActionLink("Delete", "DeletePhoto", "First",
+                             new { photoToRemove = @Model.ElementAt(0).Thumbnails.ElementAt(index).PathToFullSizeImage },
+                            new { @class = "btn btn-default btn-xs" })
+                        </p>
                     </div>
                 </div>
             </div>
     }
+    
 }
     </div>
 
 </div>
-<script>
-    function viewFunction() {
-        alert("view button was pressed");
-    }
-    function deleteFunction() {
-        alert("delete button was pressed");
-    }
-</script>
