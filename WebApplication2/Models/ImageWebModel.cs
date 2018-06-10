@@ -31,7 +31,7 @@ namespace WebApplication2.Models
                 Client.Connect();
             }
             this.isConnected = Client.Client.IsConnected;
-            this.numOfPhotos =  Directory.EnumerateFiles(HttpContext.Current.Server.MapPath("/App_Data/output_service"),
+            this.numOfPhotos =  Directory.EnumerateFiles(HttpContext.Current.Server.MapPath("/images"),
                 "*.*", SearchOption.AllDirectories).Count();
             if(! (0<numOfPhotos))
             {

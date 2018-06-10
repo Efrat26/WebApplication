@@ -15,7 +15,7 @@ namespace WebApplication2.Models
         public PhotosModel()
         {
             
-            string[] photos = Directory.GetFiles(HttpContext.Current.Server.MapPath("/App_Data/output_service/Thumbnails"),
+            string[] photos = Directory.GetFiles(HttpContext.Current.Server.MapPath("/images/Thumbnails"),
                 "*.*", SearchOption.AllDirectories);
             images = new List<string>(photos);
             CreateRelativePath();
@@ -32,7 +32,7 @@ namespace WebApplication2.Models
                 indexOfThumbnail = current.IndexOf("\\Thumbnails");
                 if (indexOfThumbnail != -1)
                 {
-                    newString ="\\App_Data\\output_service" +current.Substring(indexOfThumbnail, sizeOfString - indexOfThumbnail);
+                    newString ="\\images" +current.Substring(indexOfThumbnail, sizeOfString - indexOfThumbnail);
                     images[index] = newString;
                 }
             }
