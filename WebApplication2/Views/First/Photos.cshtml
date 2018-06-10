@@ -5,9 +5,8 @@
 <h2>Photos</h2>
 @if (Model != null && Model.ElementAt(0) != null && Model.ElementAt(0).Thumbnails != null)
 {
-    foreach (Photo photo in Model.ElementAt(0).Thumbnails)
+    for(int index = 0; index < Model.ElementAt(0).Thumbnails.Count; ++index)
     {
-        //String newPhoto = '~' + photo;
-    <img src="@photo" class="img-rounded" alt="thumbnail photo">
+    <img src="@Model.ElementAt(0).Thumbnails.ElementAt(index).Path" class="img-circle" alt="thumbnail photo">
     }
 }
