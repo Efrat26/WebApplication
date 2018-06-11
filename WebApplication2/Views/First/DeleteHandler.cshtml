@@ -28,8 +28,8 @@
             document.getElementById("btnYes").disabled = true;
             document.getElementById("btnNo").disabled = true; 
             var input = {};
-            $.post("@Url.Action("RemoveHandler")", input, function (answer) { });
-            @Html.ActionLink("Config", "Config", "First");
+            $.post("@Url.Action("RemoveHandler")", input, function (answer) { window.history.back(); });
+            
         }
     </script>
 </body>

@@ -188,7 +188,7 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public bool RemoveHandler()
         {
-            if(config != null && potenialRemovedHandler != null)
+            if (config != null && potenialRemovedHandler != null)
             {
                 while (!config.ClientAdapter.RemoveHandler(potenialRemovedHandler)) { }
             }
@@ -199,9 +199,9 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public bool RemoveImageFromComputer(bool delete)
         {
-            if (delete && potentialDeletedPhotoThumbnail != null && potentialDeletedPhoto!= null)
+            if (delete && potentialDeletedPhotoThumbnail != null && potentialDeletedPhoto != null)
             {
-                
+
                 String pThumb = System.Web.HttpContext.Current.Server.MapPath(potentialDeletedPhotoThumbnail);
                 String p = System.Web.HttpContext.Current.Server.MapPath(potentialDeletedPhoto);
                 if (System.IO.File.Exists(pThumb))
@@ -209,9 +209,10 @@ namespace WebApplication2.Controllers
                     try
                     {
                         System.IO.File.Delete(pThumb);
-                    } catch(Exception e)
+                    }
+                    catch (Exception e)
                     {
-                        Console.WriteLine("error while removing image: " + potentialDeletedPhotoThumbnail+'\n'+
+                        Console.WriteLine("error while removing image: " + potentialDeletedPhotoThumbnail + '\n' +
                             "error is: " + e.ToString());
                         return false;
                     }
@@ -231,7 +232,7 @@ namespace WebApplication2.Controllers
                     }
                 }
                 return true;
-               // return RedirectToAction("Photos");
+                // return RedirectToAction("Photos");
             }
             return true;
             //return RedirectToAction("Index");
@@ -241,9 +242,9 @@ namespace WebApplication2.Controllers
         {
             if (photosModel != null && photoToRemove != null)
             {
-                
+
                 int index;
-                for(index = 0; index<photosModel.Thumbnails.Count; ++index)
+                for (index = 0; index < photosModel.Thumbnails.Count; ++index)
                 {
                     Photo current = photosModel.Thumbnails.ElementAt(index);
                     if (current.PathToFullSizeImage.Equals(photoToRemove))
@@ -257,7 +258,7 @@ namespace WebApplication2.Controllers
                         return View("DeleteImage");
                     }
                 }
-                
+
                 return View("DeleteImage");
                 //return View("Index");
             }
@@ -287,6 +288,36 @@ namespace WebApplication2.Controllers
                     }
                 }
                 return View("ViewImage");
+            }
+            else
+            {
+                return View("Index");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult DirectToDelete(String photoToRemove)
+        {
+            if (photosModel != null && photoToRemove != null)
+            {
+                int index;
+                for (index = 0; index < photosModel.Thumbnails.Count; ++index)
+                {
+                    Photo current = photosModel.Thumbnails.ElementAt(index);
+                    if (current.PathToFullSizeImage.Equals(photoToRemove))
+                    {
+                        ViewBag.photo = photoToRemove;
+                        ViewBag.month = current.Month.ToString();
+                        ViewBag.year = current.Year.ToString();
+                        ViewBag.name = current.NameWithoutExt;
+                        potentialDeletedPhoto = photoToRemove;
+                        potentialDeletedPhotoThumbnail = current.Path;
+                        return View("DeleteImage");
+                    }
+                }
+
+                return View("DeleteImage");
+                //return View("Index");
             }
             else
             {
