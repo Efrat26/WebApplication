@@ -157,6 +157,7 @@
     <Content Include="scripts\jquery-3.0.0.slim.js" />
     <Content Include="scripts\jquery-3.0.0.slim.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\First\StyleSheet1.css" />
     <Content Include="Web.config" />
     <Content Include="Views\First\Config.cshtml" />
     <Content Include="Views\First\Photos.cshtml" />

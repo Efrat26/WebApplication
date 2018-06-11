@@ -9,21 +9,28 @@
             new DeleteHandlerModel(sel.options[sel.selectedIndex].text));
     }
 </script>
-<h2>App Config Properties</h2>
-<p>Output Directory Path:  @Model.ElementAt(0).OutputDirectory</p>
-<p>Log Name:  @Model.ElementAt(0).LogName</p>
-<p>Source Name:  @Model.ElementAt(0).SourceName</p>
-<p>Thumbnail Size:  @Model.ElementAt(0).ThumbnailSize</p>
-<p> Handlers:</p>
-<br />
+<body id="configBody">
+    <style>
+        #configBody {
+            background-color:lemonchiffon;
+            font-style: italic
+        }
+    </style>
+    <h2>App Config Properties</h2>
+    <p>Output Directory Path:  @Model.ElementAt(0).OutputDirectory</p>
+    <p>Log Name:  @Model.ElementAt(0).LogName</p>
+    <p>Source Name:  @Model.ElementAt(0).SourceName</p>
+    <p>Thumbnail Size:  @Model.ElementAt(0).ThumbnailSize</p>
+    <p> Handlers:</p>
+    <br />
     @if (Model.ElementAt(0).Handlers != null)
     {
         foreach (String handler in Model.ElementAt(0).Handlers)
         {
-        @Html.ActionLink(handler, "DeleteHandler", "First",
-       new { handlerToRemove = @handler }, null)
-        <br />
+            @Html.ActionLink(handler, "DeleteHandler", "First",
+                new { handlerToRemove = @handler }, null)
+            <br />
         }
     }
-
+</body>
 
