@@ -6,56 +6,85 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
-using System.Web;
 namespace WebApplication2.Controllers
 {
+    //the controller of the website
     public class FirstController : Controller
     {
+        /// <summary>
+        /// The potential deleted photo
+        /// </summary>
         static String potentialDeletedPhoto;
+        /// <summary>
+        /// The potential deleted photo thumbnail
+        /// </summary>
         static String potentialDeletedPhotoThumbnail;
+        /// <summary>
+        /// The index of photo/handler to be removed
+        /// </summary>
         int indexOfPhotoToBeRemoved, indexOfHandlerToBeRemoved;
+        /// <summary>
+        /// The potenial removed handler
+        /// </summary>
         static String potenialRemovedHandler;
+        /// <summary>
+        /// The photos model
+        /// </summary>
         static PhotosModel photosModel = new PhotosModel();
+        /// <summary>
+        /// a list with photos model (to send to the view bag)
+        /// </summary>
         static List<PhotosModel> photos = new List<PhotosModel>()
         {
             photosModel
         };
+        /// <summary>
+        /// The logs model
+        /// </summary>
         static LogsModel logs = new LogsModel();
+        /// <summary>
+        ///  a list with logs model (to send to the view bag)
+        /// </summary>
         static List<LogsModel> logFiles = new List<LogsModel>()
         {
             logs
         };
+        /// <summary>
+        /// The configuration model
+        /// </summary>
         static ConfigModel config = new ConfigModel();
+        /// <summary>
+        ///  a list with configuration model (to send to the view bag)
+        /// </summary>
         static List<ConfigModel> conf = new List<ConfigModel>()
         {
             config
         };
+        /// <summary>
+        /// The image web model
+        /// </summary>
         static ImageWebModel imageWeb = new ImageWebModel();
+        /// <summary>
+        ///  a list with image model (to send to the view bag)
+        /// </summary>
         static List<ImageWebModel> m = new List<ImageWebModel>()
         {
             imageWeb
         };
-        static List<Employee> employees = new List<Employee>()
-        {
-            //
-          new Employee  { FirstName = "Moshe", LastName = "Aron", Email = "Stam@stamstam", Salary = 10000, Phone = "08-8888888" },
-          new Employee  { FirstName = "Dor", LastName = "Nisim", Email = "Stam@stam", Salary = 2000, Phone = "08-8888888" },
-          new Employee   { FirstName = "Mor", LastName = "Sinai", Email = "Stam@stam", Salary = 500, Phone = "08-8888888" },
-          new Employee   { FirstName = "Dor", LastName = "Nisim", Email = "Stam@stam", Salary = 20, Phone = "08-8888888" },
-          new Employee   { FirstName = "Dor", LastName = "Nisim", Email = "Stam@stam", Salary = 700, Phone = "08-8888888" }
-        };
+        //get the index page (first page)
         // GET: First
         public ActionResult Index()
         {
             return View(m);
         }
-
+        //get the log page
+        //Get: Logs
         [HttpGet]
         public ActionResult Logs()
         {
             return View(logFiles);
         }
-
+        //get a json with a log object
         [HttpGet]
         public JObject GetEmployee()
         {
@@ -64,7 +93,15 @@ namespace WebApplication2.Controllers
             data["Type"] = "Mopy";
             return data;
         }
-
+        /// <summary>
+        /// Gets the relevant logs according to the user's selection.
+        /// the function is being called in a loop, each time it gets the index the 
+        /// loop is currently is. if the selection is as the type as the message in the 
+        /// logs's list index - it creates an object with it and sends it back.
+        /// </summary>
+        /// <param name="selection">The user's selection.</param>
+        /// <param name="index">The index.</param>
+        /// <returns></returns>
         [HttpPost]
         public JObject GetRelevantLogs(string selection, int index)
         {
@@ -87,26 +124,38 @@ namespace WebApplication2.Controllers
             }
             return null;
         }
+        /// <summary>
+        /// returns the photos page
+        /// </summary>
+        /// <returns></returns>
         // GET: First/Photos
         [HttpGet]
         public ActionResult Photos()
         {
             return View(photos);
         }
+        /// <summary>
+        /// returns the config page (and calls the get config)
+        /// </summary>
+        /// <returns></returns>
         // GET: First/Config
         [HttpGet]
         public ActionResult Config()
         {
-            config.ClientAdapter.GetAppConfig();
+           // config.ClientAdapter.GetAppConfig();
             return View(conf);
         }
-
+        /// <summary>
+        /// redrect to teh deletes handler page.
+        /// </summary>
+        /// <param name="handlerToRemove">The handler to remove.</param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult DeleteHandler(String handlerToRemove)
         {
             if (handlerToRemove != null)
             {
-                
+
                 potenialRemovedHandler = handlerToRemove;
                 ViewBag.handler = handlerToRemove;
                 return View("DeleteHandler");
@@ -116,82 +165,26 @@ namespace WebApplication2.Controllers
                 return RedirectToAction("Index");
             }
         }
+        /// <summary>
+        /// redirect to index.
+        /// </summary>
+        /// <param name="answer">The answer.</param>
+        /// <returns></returns>
         public ActionResult Remove(String answer)
         {
             return RedirectToAction("Index");
         }
-        // POST: First/Create
-        [HttpPost]
-        public ActionResult Create(Employee emp)
-        {
-            try
-            {
-                employees.Add(emp);
-
-                return RedirectToAction("Details");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: First/Edit/5
-        public ActionResult Edit(int id)
-        {
-            foreach (Employee emp in employees)
-            {
-                if (emp.ID.Equals(id))
-                {
-                    return View(emp);
-                }
-            }
-            return View("Error");
-        }
-
-        // POST: First/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, Employee empT)
-        {
-            try
-            {
-                foreach (Employee emp in employees)
-                {
-                    if (emp.ID.Equals(id))
-                    {
-                        emp.copy(empT);
-                        return RedirectToAction("Index");
-                    }
-                }
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return RedirectToAction("Error");
-            }
-        }
-
-        // GET: First/Delete/5
-        public ActionResult Delete(int id)
-        {
-            int i = 0;
-            foreach (Employee emp in employees)
-            {
-                if (emp.ID.Equals(id))
-                {
-                    employees.RemoveAt(i);
-                    return RedirectToAction("Details");
-                }
-                i++;
-            }
-            return RedirectToAction("Error");
-        }
+        /// <summary>
+        /// Removes the handler specified.
+        /// sends a command to the server (if is connected) and waits for answer.
+        /// removes the handler also from the config model's list
+        /// </summary>
+        /// <returns>bool -true if successfully removed handler and false otherwise</returns>
         [HttpPost]
         public bool RemoveHandler()
         {
             bool answer = false;
-            if (config != null && potenialRemovedHandler != null &&imageWeb.IsConnected)
+            if (config != null && potenialRemovedHandler != null && imageWeb.IsConnected)
             {
                 //find index of handler:
                 for (int i = 0; i < config.Handlers.Count; ++i)
@@ -207,10 +200,15 @@ namespace WebApplication2.Controllers
                 return (answer = true);
             }
             //potenialRemovedHandler = null;
-            
+
             return answer;
         }
-      
+        /// <summary>
+        /// Removes the image from computer and delete it from the photos
+        /// model list of photos.
+        /// </summary>
+        /// <param name="delete">if set to <c>true</c> should delete photo.</param>
+        /// <returns></returns>
         [HttpPost]
         public bool RemoveImageFromComputer(bool delete)
         {
@@ -233,7 +231,7 @@ namespace WebApplication2.Controllers
                     try
                     {
                         System.IO.File.Delete(pThumb);
-                        
+
                     }
                     catch (Exception e)
                     {
@@ -248,7 +246,7 @@ namespace WebApplication2.Controllers
                     {
                         System.IO.File.Delete(p);
                         photosModel.Thumbnails.RemoveAt(indexOfPhotoToBeRemoved);
-                       
+
                     }
                     catch (Exception e)
                     {
@@ -264,6 +262,11 @@ namespace WebApplication2.Controllers
             return true;
             //return RedirectToAction("Index");
         }
+        /// <summary>
+        /// redirects to the DeleteImage page
+        /// </summary>
+        /// <param name="photoToRemove">The photo to be remove.</param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult DeletePhoto(String photoToRemove)
         {
@@ -295,6 +298,11 @@ namespace WebApplication2.Controllers
                 return View("Index");
             }
         }
+        /// <summary>
+        /// redirects to the ViewImage page.
+        /// </summary>
+        /// <param name="photoToView">The photo to view.</param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult ViewPhoto(String photoToView)
         {
@@ -323,7 +331,11 @@ namespace WebApplication2.Controllers
                 return View("Index");
             }
         }
-
+        /// <summary>
+        /// redirects to DeleteImage page
+        /// </summary>
+        /// <param name="photoToRemove">The photo to remove.</param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult DirectToDelete(String photoToRemove)
         {
