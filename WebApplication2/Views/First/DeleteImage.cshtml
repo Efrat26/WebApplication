@@ -22,14 +22,10 @@
     function deletePhoto() {
         var input = { delete : true};
         $.post("@Url.Action("RemoveImageFromComputer")", input, function (answer) {
-            returnToPhotos(); });
+            window.history.back();
+        });
         
     }
-    </script>
-    <script>
-        function returnToPhotos() {
-            @Html.ActionLink("Photos", "Photos", "First");
-        }
     </script>
 }
 

@@ -13,6 +13,7 @@ namespace WebApplication2.Controllers
     {
         static String potentialDeletedPhoto;
         static String potentialDeletedPhotoThumbnail;
+        int indexOfPhotoToBeRemoved, indexOfHandlerToBeRemoved;
         static String potenialRemovedHandler;
         static PhotosModel photosModel = new PhotosModel();
         static List<PhotosModel> photos = new List<PhotosModel>()
@@ -105,6 +106,7 @@ namespace WebApplication2.Controllers
         {
             if (handlerToRemove != null)
             {
+                
                 potenialRemovedHandler = handlerToRemove;
                 ViewBag.handler = handlerToRemove;
                 return View("DeleteHandler");
@@ -188,19 +190,41 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public bool RemoveHandler()
         {
-            if (config != null && potenialRemovedHandler != null)
+            bool answer = false;
+            if (config != null && potenialRemovedHandler != null &&imageWeb.IsConnected)
             {
+                //find index of handler:
+                for (int i = 0; i < config.Handlers.Count; ++i)
+                {
+                    if (config.Handlers.ElementAt(i).Equals(potenialRemovedHandler))
+                    {
+                        indexOfHandlerToBeRemoved = i;
+                        break;
+                    }
+                }
                 while (!config.ClientAdapter.RemoveHandler(potenialRemovedHandler)) { }
+                config.Handlers.RemoveAt(indexOfHandlerToBeRemoved);
+                return (answer = true);
             }
             //potenialRemovedHandler = null;
-            bool answer = true;
+            
             return answer;
         }
+      
         [HttpPost]
         public bool RemoveImageFromComputer(bool delete)
         {
             if (delete && potentialDeletedPhotoThumbnail != null && potentialDeletedPhoto != null)
             {
+                int index;
+                for (index = 0; index < photosModel.Thumbnails.Count; ++index)
+                {
+                    Photo current = photosModel.Thumbnails.ElementAt(index);
+                    if (current.PathToFullSizeImage.Equals(potentialDeletedPhoto))
+                    {
+                        indexOfPhotoToBeRemoved = index;
+                    }
+                }
 
                 String pThumb = System.Web.HttpContext.Current.Server.MapPath(potentialDeletedPhotoThumbnail);
                 String p = System.Web.HttpContext.Current.Server.MapPath(potentialDeletedPhoto);
@@ -209,6 +233,7 @@ namespace WebApplication2.Controllers
                     try
                     {
                         System.IO.File.Delete(pThumb);
+                        
                     }
                     catch (Exception e)
                     {
@@ -222,6 +247,8 @@ namespace WebApplication2.Controllers
                     try
                     {
                         System.IO.File.Delete(p);
+                        photosModel.Thumbnails.RemoveAt(indexOfPhotoToBeRemoved);
+                       
                     }
                     catch (Exception e)
                     {
@@ -255,6 +282,7 @@ namespace WebApplication2.Controllers
                         ViewBag.name = current.NameWithoutExt;
                         potentialDeletedPhoto = photoToRemove;
                         potentialDeletedPhotoThumbnail = current.Path;
+                        //indexOfPhotoToBeRemoved = index;
                         return View("DeleteImage");
                     }
                 }
@@ -284,6 +312,7 @@ namespace WebApplication2.Controllers
                         ViewBag.name = current.NameWithoutExt;
                         potentialDeletedPhoto = photoToView;
                         potentialDeletedPhotoThumbnail = current.Path;
+                        //indexOfPhotoToBeRemoved = index;
                         return View("ViewImage");
                     }
                 }

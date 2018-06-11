@@ -12,25 +12,36 @@
 <body id="configBody">
     <style>
         #configBody {
-            background-color:lemonchiffon;
+            background-color: lemonchiffon;
             font-style: italic
         }
     </style>
     <h2>App Config Properties</h2>
-    <p>Output Directory Path:  @Model.ElementAt(0).OutputDirectory</p>
-    <p>Log Name:  @Model.ElementAt(0).LogName</p>
-    <p>Source Name:  @Model.ElementAt(0).SourceName</p>
-    <p>Thumbnail Size:  @Model.ElementAt(0).ThumbnailSize</p>
-    <p> Handlers:</p>
-    <br />
-    @if (Model.ElementAt(0).Handlers != null)
+    @if (ViewBag != null &&  Model != null && Model.ElementAt(0) != null)
     {
-        foreach (String handler in Model.ElementAt(0).Handlers)
+        <p>Output Directory Path:  @Model.ElementAt(0).OutputDirectory</p>
+        <p>Log Name:  @Model.ElementAt(0).LogName</p>
+        <p>Source Name:  @Model.ElementAt(0).SourceName</p>
+        <p>Thumbnail Size:  @Model.ElementAt(0).ThumbnailSize</p>
+        <p> Handlers:</p>
+        <br />
+        if (Model.ElementAt(0).Handlers != null)
         {
-            @Html.ActionLink(handler, "DeleteHandler", "First",
-                new { handlerToRemove = @handler }, null)
-            <br />
+            foreach (String handler in Model.ElementAt(0).Handlers)
+            {
+                @Html.ActionLink(handler, "DeleteHandler", "First",
+                                                    new { handlerToRemove = @handler }, null)
+                <br />
+            }
         }
+    }
+    else
+    {
+        <p>Output Directory Path: </p>
+        <p>Log Name: </p>
+        <p>Source Name: </p>
+        <p>Thumbnail Size:</p>
+        <p> Handlers:</p>
     }
 </body>
 
