@@ -132,6 +132,8 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public ActionResult Photos()
         {
+            photosModel = new PhotosModel();
+            imageWeb = new ImageWebModel();
             return View(photos);
         }
         /// <summary>
@@ -209,8 +211,8 @@ namespace WebApplication2.Controllers
         /// </summary>
         /// <param name="delete">if set to <c>true</c> should delete photo.</param>
         /// <returns></returns>
-        [HttpPost]
-        public bool RemoveImageFromComputer(bool delete)
+        [HttpGet]
+        public ActionResult RemoveImageFromComputer(bool delete)
         {
             if (delete && potentialDeletedPhotoThumbnail != null && potentialDeletedPhoto != null)
             {
@@ -237,7 +239,7 @@ namespace WebApplication2.Controllers
                     {
                         Console.WriteLine("error while removing image: " + potentialDeletedPhotoThumbnail + '\n' +
                             "error is: " + e.ToString());
-                        return false;
+                       
                     }
                 }
                 if (System.IO.File.Exists(p))
@@ -252,14 +254,14 @@ namespace WebApplication2.Controllers
                     {
                         Console.WriteLine("error while removing image: " + potentialDeletedPhoto + '\n' +
                             "error is: " + e.ToString());
-                        return false;
+                       // return RedirectToAction("Photos");
 
                     }
                 }
-                return true;
+               // return RedirectToAction("Photos");
                 // return RedirectToAction("Photos");
             }
-            return true;
+            return RedirectToAction("Photos");
             //return RedirectToAction("Index");
         }
         /// <summary>
@@ -370,7 +372,7 @@ namespace WebApplication2.Controllers
         /// </summary>
         /// <param name="photoToRemove">The photo to remove.</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         public ActionResult DirectToDeleteAfterView()
         {
             if (photosModel != null && potentialDeletedPhoto != null)

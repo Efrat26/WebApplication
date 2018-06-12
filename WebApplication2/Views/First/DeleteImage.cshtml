@@ -11,22 +11,17 @@
     <p>
         <img id="myImg" src="@ViewBag.photo" alt="full size photo" />
     </p>
-    <button id="btnYes" onclick="deletePhoto()">Yes</button>
-    <button id="btnNo" onclick="returnToPhotos()">No</button>
-    <script>
-        function returnToPhotos() {
-            window.history.back();
-        }
-    </script>
-    <script>
-    function deletePhoto() {
-        var input = { delete : true};
-        $.post("@Url.Action("RemoveImageFromComputer")", input, function (answer) {
-            window.location.href = "/First/Photos";
-        });
-        
-    }
-    </script>
+    <p>
+
+        @Html.ActionLink("Back", "Photos", "First",
+new {},
+new { @class = "btn btn - info btn - xs" })
+
+        @Html.ActionLink("Delete", "RemoveImageFromComputer", "First",
+new { delete  = true},
+new { @class = "btn btn-default btn-xs" })
+
+    </p>
 }
 
 

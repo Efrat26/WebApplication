@@ -17,28 +17,34 @@
             <td>Last Name</td>
             <td>ID</td>
         </tr>
-        @foreach (var item in Model)
+        @if (Model != null && Model.ElementAt(0) != null)
         {
-            for (int i = 0; i < @item.Students.Count; ++i)
+            foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @item.Students.ElementAt(i).FirstName
-                    </td>
-                    <td>
-                        @item.Students.ElementAt(i).LastName
-                    </td>
-                    <td>
-                        @item.Students.ElementAt(i).ID
-                    </td>
-                </tr>
+                for (int i = 0; i < @item.Students.Count; ++i)
+                {
+                    <tr>
+                        <td>
+                            @item.Students.ElementAt(i).FirstName
+                        </td>
+                        <td>
+                            @item.Students.ElementAt(i).LastName
+                        </td>
+                        <td>
+                            @item.Students.ElementAt(i).ID
+                        </td>
+                    </tr>
+                }
             }
         }
     </table>
     <br />
     <br />
-    <p>Connected:  @Model.ElementAt(0).IsConnected</p>
-    <br />
-    <br />
-    <p>Number Of Photos In Output Directory (thumbnail and regular): @Model.ElementAt(0).NumberOfPhotos</p>
-</body>
+    @if (Model != null && Model.ElementAt(0) != null)
+    {
+        <p>Connected:  @Model.ElementAt(0).IsConnected</p>
+        <br />
+        <br />
+        <p>Number Of Photos In Output Directory (thumbnail and regular): @Model.ElementAt(0).NumberOfPhotos</p>
+    }
+    </body>
