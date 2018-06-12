@@ -137,8 +137,15 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public ActionResult Photos()
         {
-            //photosModel = new PhotosModel();
-            //imageWeb = new ImageWebModel();
+            if(photos != null && photos.ElementAt(0) != null && m != null && m.ElementAt(0) != null)
+            {
+                if (m.ElementAt(0).countNumOfPhotosInDir() > 2*(photos.ElementAt(0).Thumbnails.Count))
+                {
+                    photos.ElementAt(0).CreateListOfPhotos();
+                    potentialDeletedPhoto = null;
+                    potentialDeletedPhotoThumbnail = null;
+                }
+            }
             return View(photos);
         }
         /// <summary>

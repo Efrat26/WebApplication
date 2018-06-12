@@ -14,12 +14,15 @@ namespace WebApplication2.Models
 
         public PhotosModel()
         {
-            
+            this.CreateListOfPhotos();
+            Console.WriteLine("hello");
+        }
+        public void CreateListOfPhotos()
+        {
             string[] photos = Directory.GetFiles(HttpContext.Current.Server.MapPath("/images/Thumbnails"),
                 "*.*", SearchOption.AllDirectories);
             images = new List<Photo>();
             CreatePhotoObjects(photos);
-            Console.WriteLine("hello");
         }
         private void CreatePhotoObjects(string[] photos)
         {
