@@ -26,11 +26,12 @@
     <script>
         function removeHandler() {
             document.getElementById("btnYes").disabled = true;
-            document.getElementById("btnNo").disabled = true; 
+            document.getElementById("btnNo").disabled = true;
             var input = {};
-            $.post("@Url.Action("RemoveHandler")", input, function () { });
-            window.history.back();
-            
+            $.post("@Url.Action("RemoveHandler")", input, function () {
+               window.location.href="/First/Config";
+            });
+
         }
     </script>
 </body>

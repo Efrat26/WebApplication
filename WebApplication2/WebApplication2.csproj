@@ -135,13 +135,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="images\2018\5\download2.jpg" />
     <Content Include="images\2018\6\cute dog image.jpg" />
-    <Content Include="images\2018\6\dog bmp%281%29.bmp" />
     <Content Include="images\2018\6\dog bmp.bmp" />
     <Content Include="images\2018\6\Dog-Face-PNG-Image.png" />
     <Content Include="images\2018\6\download2.jpg" />
-    <Content Include="images\Thumbnails\2018\5\download2.jpg" />
     <Content Include="images\Thumbnails\2018\6\cute dog image.jpg" />
     <Content Include="images\Thumbnails\2018\6\dog bmp.bmp" />
     <Content Include="images\Thumbnails\2018\6\Dog-Face-PNG-Image.png" />
@@ -231,8 +228,10 @@
   <ItemGroup>
     <Folder Include="images\2018\3\" />
     <Folder Include="images\2018\4\" />
+    <Folder Include="images\2018\5\" />
     <Folder Include="images\Thumbnails\2018\3\" />
     <Folder Include="images\Thumbnails\2018\4\" />
+    <Folder Include="images\Thumbnails\2018\5\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

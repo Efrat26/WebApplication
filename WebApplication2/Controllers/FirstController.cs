@@ -365,5 +365,39 @@ namespace WebApplication2.Controllers
                 return View("Index");
             }
         }
+        /// <summary>
+        /// redirects to DeleteImage page
+        /// </summary>
+        /// <param name="photoToRemove">The photo to remove.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult DirectToDeleteAfterView()
+        {
+            if (photosModel != null && potentialDeletedPhoto != null)
+            {
+                int index;
+                for (index = 0; index < photosModel.Thumbnails.Count; ++index)
+                {
+                    Photo current = photosModel.Thumbnails.ElementAt(index);
+                    if (current.PathToFullSizeImage.Equals(potentialDeletedPhoto))
+                    {
+                        ViewBag.photo = potentialDeletedPhoto;
+                        ViewBag.month = current.Month.ToString();
+                        ViewBag.year = current.Year.ToString();
+                        ViewBag.name = current.NameWithoutExt;
+                        //potentialDeletedPhoto = photoToRemove;
+                        //potentialDeletedPhotoThumbnail = current.Path;
+                        return View("DeleteImage");
+                    }
+                }
+
+                return View("DeleteImage");
+                //return View("Index");
+            }
+            else
+            {
+                return View("Index");
+            }
+        }
     }
 }

@@ -22,7 +22,7 @@
     function deletePhoto() {
         var input = { delete : true};
         $.post("@Url.Action("RemoveImageFromComputer")", input, function (answer) {
-            window.history.back();
+            window.location.href = "/First/Photos";
         });
         
     }
