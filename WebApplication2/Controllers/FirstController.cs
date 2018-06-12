@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -132,8 +133,8 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public ActionResult Photos()
         {
-            photosModel = new PhotosModel();
-            imageWeb = new ImageWebModel();
+            //photosModel = new PhotosModel();
+            //imageWeb = new ImageWebModel();
             return View(photos);
         }
         /// <summary>
@@ -230,6 +231,7 @@ namespace WebApplication2.Controllers
                 String p = System.Web.HttpContext.Current.Server.MapPath(potentialDeletedPhoto);
                 if (System.IO.File.Exists(pThumb))
                 {
+                    while (this.IsFileLocked(new FileInfo(pThumb))) { };
                     try
                     {
                         System.IO.File.Delete(pThumb);
@@ -244,6 +246,7 @@ namespace WebApplication2.Controllers
                 }
                 if (System.IO.File.Exists(p))
                 {
+                    while (this.IsFileLocked(new FileInfo(p))) { };
                     try
                     {
                         System.IO.File.Delete(p);
@@ -254,7 +257,8 @@ namespace WebApplication2.Controllers
                     {
                         Console.WriteLine("error while removing image: " + potentialDeletedPhoto + '\n' +
                             "error is: " + e.ToString());
-                       // return RedirectToAction("Photos");
+                        photosModel.Thumbnails.RemoveAt(indexOfPhotoToBeRemoved);
+                        // return RedirectToAction("Photos");
 
                     }
                 }
@@ -400,6 +404,38 @@ namespace WebApplication2.Controllers
             {
                 return View("Index");
             }
+        }
+        /// <summary>
+        /// Determines whether the file is locked.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns>
+        ///   <c>true</c> if is file locked and otherwise, <c>false</c>.
+        /// </returns>
+        protected virtual bool IsFileLocked(FileInfo file)
+        {
+            FileStream stream = null;
+
+            try
+            {
+                stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None);
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+
+            //file is not locked
+            return false;
         }
     }
 }
