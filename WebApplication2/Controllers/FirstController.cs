@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
@@ -242,7 +243,7 @@ namespace WebApplication2.Controllers
                 String p = System.Web.HttpContext.Current.Server.MapPath(potentialDeletedPhoto);
                 if (System.IO.File.Exists(pThumb))
                 {
-                    while (this.IsFileLocked(new FileInfo(pThumb))) { };
+                    while (this.IsFileLocked(new FileInfo(pThumb))) { Thread.Sleep(2000); };
                     try
                     {
                         System.IO.File.Delete(pThumb);
@@ -257,7 +258,7 @@ namespace WebApplication2.Controllers
                 }
                 if (System.IO.File.Exists(p))
                 {
-                    while (this.IsFileLocked(new FileInfo(p))) { };
+                    while (this.IsFileLocked(new FileInfo(p))) { Thread.Sleep(2000); };
                     try
                     {
                         System.IO.File.Delete(p);
