@@ -76,6 +76,10 @@ namespace WebApplication2.Controllers
         // GET: First
         public ActionResult Index()
         {
+            if (m != null && m.ElementAt(0) != null)
+            {
+                m.ElementAt(0).NumberOfPhotos = m.ElementAt(0).countNumOfPhotosInDir();
+            }
             return View(m);
         }
         //get the log page

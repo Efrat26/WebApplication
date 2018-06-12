@@ -23,6 +23,20 @@ namespace WebApplication2.Models
             get { return this.numOfPhotos; }
              set { this.numOfPhotos = value; }
         }
+        public int countNumOfPhotosInDir()
+        {
+            int result;
+            try
+            {
+               return result = Directory.EnumerateFiles(HttpContext.Current.Server.MapPath("/images"),
+                    "*.*", SearchOption.AllDirectories).Count();
+            }
+            catch (Exception)
+            {
+                 return numOfPhotos = 0;
+            }
+            
+        }
         public ImageWebModel()
         {
             Client = new ImageWebClient();
@@ -31,18 +45,7 @@ namespace WebApplication2.Models
                 Client.Connect();
             }
             this.isConnected = Client.Client.IsConnected;
-            try
-            {
-                this.numOfPhotos = Directory.EnumerateFiles(HttpContext.Current.Server.MapPath("/images"),
-                    "*.*", SearchOption.AllDirectories).Count();
-            } catch (Exception)
-            {
-                numOfPhotos = 0;
-            }
-            if(! (0<numOfPhotos))
-            {
-                numOfPhotos = 0;
-            }
+            this.numOfPhotos = this.countNumOfPhotosInDir();
             this.students = new List<StudentDetails>();
             this.readStudentsDetails();
         }
